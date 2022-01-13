@@ -6,7 +6,6 @@ source "$ScriptDir/support.sh"
 
 AptInstallIfNeededm "lsb-release" "dialog"
 CheckOs2 "Ubuntu" "21.04"
-clear
 ContinueOrAbort
 
 gaptgetupdate

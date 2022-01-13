@@ -76,7 +76,9 @@ gdoreleaseupgrade()
     Replace "/etc/update-manager/release-upgrades" "Prompt=lts" "Prompt=normal"
     sudo do-release-upgrade -f DistUpgradeViewNonInteractive
     sudo apt-get -y autoremove
-    gaptgetupdate
+    sudo apt-get -y update
+    sudo apt --fix-broken install
+    sudo apt-get -y update
 }
 
 
