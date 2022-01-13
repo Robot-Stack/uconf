@@ -91,13 +91,3 @@ gaptgetyim()
         gaptgetyi "$arg"
     done
 }
-
-
-
-#$str="GenFiltEff=7.092200e-01"
-#$value=${str#*=}
-
-
-#str=$(lsb_release -r);str="${str#*:}"";str="${str#"${str%%[![:space:]]*}"}";echo "$str"
-
-#

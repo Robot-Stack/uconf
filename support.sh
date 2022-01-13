@@ -29,3 +29,39 @@ function CheckOs()
         exit
     fi
 }
+
+function CheckOs2()
+{
+    os=$(gdisplayos)
+    version=$(gdisplayosver)
+    local ok=
+    if [ "$os" = "$1" ] && [ "$version" = "$2" ]; then
+        echo "$os $version checked (ok)"
+    else
+        echo "Expected $1 $2 found $os $version. (abort)"
+    fi
+}
+
+function ContinueOrAbort()
+{
+    exec 3>&1
+    selection=$(dialog \
+        --backtitle "WARNING!!!" \
+        --title "Menu" \
+        --clear \
+        --cancel-label "Exit" \
+        --menu "WARNING!!! This script can damage your system. Use on your own risk." 20 40 4 \
+        "A" "Abort" \
+        "C" "Continue" \
+        2>&1 1>&3)
+    exitcode=$?
+    exec 3>&-
+    echo $selection $exitcode
+
+    if [ "$selection" != "C" ] ; then
+        clear
+        echo "Aborted."
+        exit
+    fi
+    clear
+}
