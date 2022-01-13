@@ -8,6 +8,11 @@ function gpause()
     echo ""
 }
 
+function AppendStringOnce()
+{
+    grep -qxF "$1" $2 || echo "$1" >> $2
+}
+
 gaptgetyi()
 {
     #stdout and stderr to null              >/dev/null 2>&1

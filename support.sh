@@ -8,4 +8,8 @@ function spause()
     echo ""
 }
 
+function ReConfigureBashRc()
+{
+    AppendStringOnce "export PATH=\$PATH:$ScriptDir" "$HOME/.bashrc"
+}
 
