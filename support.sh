@@ -46,7 +46,7 @@ function ContinueOrAbort()
 {
     exec 3>&1
     selection=$(dialog \
-        --backtitle "WARNING!!!" \
+        --backtitle "NaitWatch personal setup script." \
         --title "Menu" \
         --clear \
         --cancel-label "Exit" \
@@ -65,3 +65,4 @@ function ContinueOrAbort()
     fi
     clear
 }
+

@@ -75,6 +75,8 @@ gdoreleaseupgrade()
 {
     Replace "/etc/update-manager/release-upgrades" "Prompt=lts" "Prompt=normal"
     sudo do-release-upgrade -f DistUpgradeViewNonInteractive
+    sudo apt-get -y autoremove
+    gaptgetupdate
 }
 
 
@@ -85,9 +87,37 @@ gaptgetyi()
     sudo apt-get -y install $1
 }
 
+gaptgetyi2()
+{
+    #stdout and stderr to null              >/dev/null 2>&1
+    #stdout to null                         >/dev/null
+    sudo apt-get -y install $1
+}
+
 gaptgetyim()
 {
     for arg; do
         gaptgetyi "$arg"
+    done
+}
+
+AptInstallIfNeeded()
+{
+    local test="$1"
+    local str=$(apt --installed list 2>/dev/null | grep "^$test/.*")
+    str="${str%/*}"
+
+    if [ "$1" = "$str" ] ; then
+        echo "Skipping $1"
+    else
+        echo "Installing $1"
+        sudo apt-get -y install $1 >/dev/null
+    fi
+}
+
+AptInstallIfNeededm()
+{
+    for arg; do
+        AptInstallIfNeeded "$arg"
     done
 }

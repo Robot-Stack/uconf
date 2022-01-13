@@ -4,10 +4,9 @@ ScriptDir="$(realpath "$0" | sed 's|\(.*\)/.*|\1|')"
 source "$ScriptDir/generic.sh"
 source "$ScriptDir/support.sh"
 
-sudo apt-get -y install "lsb-release" "dialog" >/dev/null
-clear
-echo "NaitWatch personal setup script."
+AptInstallIfNeededm "lsb-release" "dialog"
 CheckOs2 "Ubuntu" "21.04"
+clear
 ContinueOrAbort
 
 gaptgetupdate
@@ -22,4 +21,5 @@ ReConfigureBashRc
 
 
 gpause
+
 
