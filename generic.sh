@@ -58,27 +58,23 @@ function gdisplayosver()
 
 gaptgetupdate()
 {
-    echo "apt-get -y update >/dev/null"
-    sudo apt-get -y update >/dev/null
+    sudo apt-get -y update
 }
 
 gaptgetupgrade()
 {
-    echo "apt-get -y upgrade >/dev/null"
-    sudo apt-get -y upgrade >/dev/null
+    sudo apt-get -y upgrade
 }
 
 gaptgetdistupgrade()
 {
-    echo "apt-get -y dist-upgrade >/dev/null"
-    sudo apt-get -y dist-upgrade >/dev/null
+    sudo apt-get -y dist-upgrade
 }
 
 gdoreleaseupgrade()
 {
     Replace "/etc/update-manager/release-upgrades" "Prompt=lts" "Prompt=normal"
-    echo "do-release-upgrade -f DistUpgradeViewNonInteractive >/dev/null"
-    sudo do-release-upgrade -f DistUpgradeViewNonInteractive >/dev/null
+    sudo do-release-upgrade -f DistUpgradeViewNonInteractive
 }
 
 
@@ -86,8 +82,7 @@ gaptgetyi()
 {
     #stdout and stderr to null              >/dev/null 2>&1
     #stdout to null                         >/dev/null
-    echo "apt-get -y install $1  >/dev/null"
-    sudo apt-get -y install $1  >/dev/null
+    sudo apt-get -y install $1
 }
 
 gaptgetyim()

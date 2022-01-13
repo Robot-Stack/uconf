@@ -5,10 +5,11 @@ source "$ScriptDir/generic.sh"
 source "$ScriptDir/support.sh"
 
 
-gdisplayos
-gdisplayosver
+gaptgetyim "lsb-release"
+CheckOs "Ubuntu"
+CheckOsVer "21.04"
 
-exit
+
 
 gaptgetupdate
 gaptgetupgrade
@@ -19,7 +20,7 @@ gaptgetupgrade
 gaptgetupdate
 gdoreleaseupgrade
 
-gaptgetyim "apt-transport-https" "lsb-release" "git" "curl" "mc"
+gaptgetyim "apt-transport-https" "git" "curl" "mc"
 
 ReConfigureBashRc
 
