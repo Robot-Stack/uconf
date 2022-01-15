@@ -1,3 +1,9 @@
+<style>
+mark{
+    color:red;
+}
+</style>
+
 # uconf
 Copy & Paste friendly version for terminal.
 Copies all files to $HOME/uconf directory and than executes uconf.sh
