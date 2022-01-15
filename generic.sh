@@ -81,45 +81,95 @@ gdoreleaseupgrade()
     sudo apt-get -y update
 }
 
-
-gaptgetyi()
+CommandOptionLoop()
 {
-    #stdout and stderr to null              >/dev/null 2>&1
-    #stdout to null                         >/dev/null
-    sudo apt-get -y install $1
-}
-
-gaptgetyi2()
-{
-    #stdout and stderr to null              >/dev/null 2>&1
-    #stdout to null                         >/dev/null
-    sudo apt-get -y install $1
-}
-
-gaptgetyim()
-{
+    local arrVar=()
+    #function parameters to bash array
     for arg; do
-        gaptgetyi "$arg"
+        arrVar+=("$arg")
+    done
+    #first element to option
+    local command=${arrVar[0]}
+    local option=${arrVar[1]}
+    #remove first element
+    arrVar=("${arrVar[@]:1}")
+    arrVar=("${arrVar[@]:1}")
+
+    #loop over the array
+    for i in "${arrVar[@]}"
+    do
+        $command "$option" "$i"
     done
 }
 
-AptInstallIfNeeded()
+CommandLoop()
 {
-    local test="$1"
-    local str=$(apt --installed list 2>/dev/null | grep "^$test/.*")
-    str="${str%/*}"
+    local arrVar=()
+    #function parameters to bash array
+    for arg; do
+        arrVar+=("$arg")
+    done
+    #first element to option
+    local command=${arrVar[0]}
+    
+    #remove first element
+    arrVar=("${arrVar[@]:1}")
 
-    if [ "$1" = "$str" ] ; then
-        echo "Skipping: apt-get -y install $1 >/dev/null"
+    #loop over the array
+    for i in "${arrVar[@]}"
+    do
+        $command "$i"
+    done
+}
+
+gapt()
+{
+    if [ "$1" = "normal" ] ; then
+        sudo apt-get -y install $2
+    elif [ "$1" = "stderr only" ] ; then
+        sudo apt-get -y install $2 >/dev/null
+    elif [ "$1" = "verbose stderr" ] ; then
+        echo "sudo apt-get -y install $2 >/dev/null"
+        sudo apt-get -y install $2 >/dev/null
+    elif [ "$1" = "hidden stderr" ] ; then
+        sudo apt-get -y install $2 >/dev/null
+    elif [ "$1" = "hidden null" ] ; then
+        sudo apt-get -y install $2 >/dev/null 2>&1
     else
-        echo "Executeing: apt-get -y install $1 >/dev/null"
-        sudo apt-get -y install $1 >/dev/null
+        echo "Dryrun: $2"
     fi
 }
 
-AptInstallIfNeededm()
+gcheckapt()
 {
-    for arg; do
-        AptInstallIfNeeded "$arg"
-    done
+    local test="$2"
+    local str=$(apt --installed list 2>/dev/null | grep "^$test/.*")
+    str="${str%/*}"
+
+    if [ "$2" != "$str" ] ; then
+        if [ "$1" = "hidden" ] ; then
+            gapt "hidden stderr" "$2"
+        elif [ "$1" = "show" ] ; then
+            gapt "verbose stderr" "$2"
+        else
+            gapt "verbose stderr" "$2"
+        fi
+    else
+        if [ "$1" = "show" ] ; then
+        gpecho "60" " " "Package: " "$2" "(is installed)"
+        fi
+    fi
+}
+
+gpecho()
+{
+    paddwidth="$1"
+    paddchar="$2"
+    prefix="$3"
+    dynamic="$4"
+    suffix="$5"
+    padding=$(printf %$paddwidth\s |tr " " "$paddchar")
+    mix="$prefix$dynamic"
+    result=$(printf "%s%s %s\n" "$mix" "${padding:${#mix}}" "$suffix")
+    echo "$result"
 }

@@ -5,7 +5,9 @@ source "$ScriptDir/generic.sh"
 source "$ScriptDir/stratum.sh"
 source "$ScriptDir/support.sh"
 
-AptInstallIfNeededm "lsb-release" "dialog"
+
+
+sapth "lsb-release" "dialog"
 CheckOs2 "Ubuntu" "21.04"
 ContinueOrAbort
 
@@ -15,7 +17,7 @@ gaptgetupdate
 gaptgetdistupgrade
 gaptgetupdate
 
-AptInstallIfNeededm "apt-transport-https" "git" "curl" "mc"
+sapt "apt-transport-https" "git" "curl" "mc"
 
 ReConfigureBashRc
 

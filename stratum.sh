@@ -1,4 +1,13 @@
 #!/bin/bash
 # stratum.sh
 
-echo "stratum"
+
+sapt()
+{
+    CommandOptionLoop "gcheckapt" "show" "$@"
+}
+
+sapth()
+{
+    CommandOptionLoop "gcheckapt" "hidden" "$@"
+}
