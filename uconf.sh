@@ -1,5 +1,5 @@
 #!/bin/bash
-# main.sh
+# uconf.sh
 ScriptDir="$(realpath "$0" | sed 's|\(.*\)/.*|\1|')"
 source "$ScriptDir/generic.sh"
 source "$ScriptDir/stratum.sh"
