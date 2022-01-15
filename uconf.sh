@@ -10,7 +10,7 @@ scheckos "Ubuntu" "21.10"
 gcontinueorabort "NaitWatch personal setup script."
 supdateall
 
-sapt "apt-transport-https" "git" "curl" "mc"
+sapt "apt-transport-https" "git" "curl" "mc" "flameshot"
 
 ReConfigureBashRc
 
