@@ -10,8 +10,8 @@ scheckos "Ubuntu" "21.10"
 gcontinueorabort "NaitWatch personal setup script."
 supdateall
 
-#Generic terminal programs
-sapt "apt-transport-https" "git" "curl" "mc" "ffmpeg"
+#Generic terminal/basic programs
+sapt "apt-transport-https" "snapcraft" "gdebi-core" "git" "curl" "mc" "ffmpeg"
 
 #Generic UI Tools
 sapt "libreoffice" "gimp" "inkscape" "flameshot" 
