@@ -1,6 +1,9 @@
 #!/bin/bash
 # stratum.sh
 
+#verbosity="verbose stderr"
+#verbosity="hidden stderr"
+verbosity="verbose stderr"
 
 sapt()
 {
@@ -14,9 +17,8 @@ sapth()
 
 scheckos()
 {
-    os=$(gdisplayos)
-    version=$(gdisplayosver)
-    local ok=
+    local os=$(gdisplayos)
+    local version=$(gdisplayosver)
     if [ "$os" = "$1" ] && [ "$version" = "$2" ]; then
         echo "$os $version checked (ok)"
     else
@@ -25,17 +27,26 @@ scheckos()
     fi
 }
 
-supdateh()
+supdate()
 {
-    gupdate "hidden stderr"
+    gupdate "$verbosity"
 }
 
-supgradeh()
+supgrade()
 {
-    gupgrade "hidden stderr"
+    gupgrade "$verbosity"
 }
 
-sgdistupgradeh()
+sgdistupgrade()
 {
-    gdistupgrade "hidden stderr"
+    gdistupgrade "$verbosity"
+}
+
+supdateall()
+{
+    supdate "$verbosity"
+    supgrade "$verbosity"
+    supdate "$verbosity"
+    sgdistupgrade "$verbosity"
+    supdate "$verbosity"
 }

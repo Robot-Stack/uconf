@@ -213,21 +213,21 @@ gcheckapt()
 
 gpecho()
 {
-    paddwidth="$1"
-    paddchar="$2"
-    prefix="$3"
-    dynamic="$4"
-    suffix="$5"
-    padding=$(printf %$paddwidth\s |tr " " "$paddchar")
-    mix="$prefix$dynamic"
-    result=$(printf "%s%s %s\n" "$mix" "${padding:${#mix}}" "$suffix")
+    local paddwidth="$1"
+    local paddchar="$2"
+    local prefix="$3"
+    local dynamic="$4"
+    local suffix="$5"
+    local padding=$(printf %$paddwidth\s |tr " " "$paddchar")
+    local mix="$prefix$dynamic"
+    local result=$(printf "%s%s %s\n" "$mix" "${padding:${#mix}}" "$suffix")
     echo "$result"
 }
 
 gcontinueorabort()
 {
     exec 3>&1
-    selection=$(dialog \
+    local selection=$(dialog \
         --backtitle "$1" \
         --title "Menu" \
         --clear \
@@ -236,7 +236,7 @@ gcontinueorabort()
         "A" "Abort" \
         "C" "Continue" \
         2>&1 1>&3)
-    exitcode=$?
+    local exitcode=$?
     exec 3>&-
     echo $selection $exitcode
 
