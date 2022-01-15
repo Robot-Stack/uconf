@@ -2,6 +2,7 @@
 ## Description
 uconf is personal setup script to for Ubuntu with the required software for me.
 I just upped it here to have it quickly availible.
+The generic.sh file can contain something intresting e.g. gcheckapt() which checks for already installed packages without just brute force installing them.
 
 ## How to start
 Copy & Paste friendly version for terminal.
