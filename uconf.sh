@@ -14,7 +14,7 @@ gaptgetupdate
 gaptgetdistupgrade
 gaptgetupdate
 
-gaptgetyim "apt-transport-https" "git" "curl" "mc"
+AptInstallIfNeededm "apt-transport-https" "git" "curl" "mc"
 
 ReConfigureBashRc
 

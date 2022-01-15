@@ -110,9 +110,9 @@ AptInstallIfNeeded()
     str="${str%/*}"
 
     if [ "$1" = "$str" ] ; then
-        echo "Skipping $1"
+        echo "Skipping: apt-get -y install $1 >/dev/null"
     else
-        echo "Installing $1"
+        echo "Executeing: apt-get -y install $1 >/dev/null"
         sudo apt-get -y install $1 >/dev/null
     fi
 }
