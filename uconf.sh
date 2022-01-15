@@ -8,14 +8,14 @@ source "$ScriptDir/support.sh"
 
 
 sapth "lsb-release" "dialog"
-CheckOs2 "Ubuntu" "21.04"
-ContinueOrAbort
+scheckos "Ubuntu" "21.10"
+gcontinueorabort "NaitWatch personal setup script."
 
-gaptgetupdate
-gaptgetupgrade
-gaptgetupdate
-gaptgetdistupgrade
-gaptgetupdate
+supdateh
+supgradeh
+supdateh
+sgdistupgradeh
+supdateh
 
 sapt "apt-transport-https" "git" "curl" "mc"
 

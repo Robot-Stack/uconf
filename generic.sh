@@ -56,10 +56,6 @@ function gdisplayosver()
     echo "$str"
 }
 
-gaptgetupdate()
-{
-    sudo apt-get -y update
-}
 
 gaptgetupgrade()
 {
@@ -122,6 +118,60 @@ CommandLoop()
     done
 }
 
+gdistupgrade()
+{
+    if [ "$1" = "normal" ] ; then
+        sudo apt-get -y dist-upgrade
+    elif [ "$1" = "stderr only" ] ; then
+        sudo apt-get -y dist-upgrade >/dev/null
+    elif [ "$1" = "verbose stderr" ] ; then
+        echo "sudo apt-get -y dist-upgrade"
+        sudo apt-get -y dist-upgrade >/dev/null
+    elif [ "$1" = "hidden stderr" ] ; then
+        sudo apt-get -y dist-upgrade >/dev/null
+    elif [ "$1" = "hidden null" ] ; then
+        sudo apt-get -y dist-upgrade >/dev/null 2>&1
+    else
+        echo "Dryrun: $2"
+    fi
+}
+
+gupgrade()
+{
+    if [ "$1" = "normal" ] ; then
+        sudo apt-get -y upgrade
+    elif [ "$1" = "stderr only" ] ; then
+        sudo apt-get -y upgrade >/dev/null
+    elif [ "$1" = "verbose stderr" ] ; then
+        echo "sudo apt-get -y upgrade"
+        sudo apt-get -y upgrade >/dev/null
+    elif [ "$1" = "hidden stderr" ] ; then
+        sudo apt-get -y upgrade >/dev/null
+    elif [ "$1" = "hidden null" ] ; then
+        sudo apt-get -y upgrade >/dev/null 2>&1
+    else
+        echo "Dryrun: $2"
+    fi
+}
+
+gupdate()
+{
+    if [ "$1" = "normal" ] ; then
+        sudo apt-get -y update
+    elif [ "$1" = "stderr only" ] ; then
+        sudo apt-get -y update >/dev/null
+    elif [ "$1" = "verbose stderr" ] ; then
+        echo "sudo apt-get -y update"
+        sudo apt-get -y update >/dev/null
+    elif [ "$1" = "hidden stderr" ] ; then
+        sudo apt-get -y update >/dev/null
+    elif [ "$1" = "hidden null" ] ; then
+        sudo apt-get -y update >/dev/null 2>&1
+    else
+        echo "Dryrun: $2"
+    fi
+}
+
 gapt()
 {
     if [ "$1" = "normal" ] ; then
@@ -147,15 +197,15 @@ gcheckapt()
     str="${str%/*}"
 
     if [ "$2" != "$str" ] ; then
-        if [ "$1" = "hidden" ] ; then
+        if [ "$1" = "hidden stderr" ] ; then
             gapt "hidden stderr" "$2"
-        elif [ "$1" = "show" ] ; then
+        elif [ "$1" = "verbose stderr" ] ; then
             gapt "verbose stderr" "$2"
         else
             gapt "verbose stderr" "$2"
         fi
     else
-        if [ "$1" = "show" ] ; then
+        if [ "$1" = "verbose stderr" ] ; then
         gpecho "60" " " "Package: " "$2" "(is installed)"
         fi
     fi
@@ -172,4 +222,28 @@ gpecho()
     mix="$prefix$dynamic"
     result=$(printf "%s%s %s\n" "$mix" "${padding:${#mix}}" "$suffix")
     echo "$result"
+}
+
+gcontinueorabort()
+{
+    exec 3>&1
+    selection=$(dialog \
+        --backtitle "$1" \
+        --title "Menu" \
+        --clear \
+        --cancel-label "Exit" \
+        --menu "WARNING!!! This script can damage your system. Use on your own risk." 20 40 4 \
+        "A" "Abort" \
+        "C" "Continue" \
+        2>&1 1>&3)
+    exitcode=$?
+    exec 3>&-
+    echo $selection $exitcode
+
+    if [ "$selection" != "C" ] ; then
+        clear
+        echo "Aborted."
+        exit
+    fi
+    clear
 }
