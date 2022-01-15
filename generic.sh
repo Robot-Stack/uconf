@@ -247,3 +247,43 @@ gcontinueorabort()
     fi
     clear
 }
+
+gsnap()
+{
+    if [ "$1" = "normal" ] ; then
+        sudo snap install --classic $2
+    elif [ "$1" = "stderr only" ] ; then
+        sudo snap install --classic $2 >/dev/null
+    elif [ "$1" = "verbose stderr" ] ; then
+        echo "sudo snap install --classic $2 >/dev/null"
+        sudo snap install --classic $2 >/dev/null
+    elif [ "$1" = "hidden stderr" ] ; then
+        sudo snap install --classic $2 >/dev/null
+    elif [ "$1" = "hidden null" ] ; then
+        sudo snap install --classic $2 >/dev/null 2>&1
+    else
+        echo "Dryrun: $2"
+    fi
+}
+
+gchecksnap()
+{
+    local test="$2"
+    local str=$(snap list 2>/dev/null  | grep "^$test .*")
+    str="${str%% *}"
+    
+
+    if [ "$2" != "$str" ] ; then
+        if [ "$1" = "hidden stderr" ] ; then
+            gsnap "hidden stderr" "$2"
+        elif [ "$1" = "verbose stderr" ] ; then
+            gsnap "verbose stderr" "$2"
+        else
+            gsnap "verbose stderr" "$2"
+        fi
+    else
+        if [ "$1" = "verbose stderr" ] ; then
+        gpecho "60" " " "Package: " "$2" "(is installed)"
+        fi
+    fi
+}

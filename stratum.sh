@@ -10,6 +10,11 @@ sapt()
     CommandOptionLoop "gcheckapt" "verbose stderr" "$@"
 }
 
+ssnap()
+{
+    CommandOptionLoop "gchecksnap" "verbose stderr" "$@"
+}
+
 sapth()
 {
     CommandOptionLoop "gcheckapt" "hidden stderr" "$@"

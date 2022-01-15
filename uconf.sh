@@ -10,13 +10,25 @@ scheckos "Ubuntu" "21.10"
 gcontinueorabort "NaitWatch personal setup script."
 supdateall
 
-sapt "apt-transport-https" "git" "curl" "mc" "flameshot"
+#Generic terminal programs
+sapt "apt-transport-https" "git" "curl" "mc" "ffmpeg"
+
+#Generic UI Tools
+sapt "libreoffice" "gimp" "inkscape" "flameshot" 
+ssnap "code" "telegram-desktop"
+
+
 
 ReConfigureBashRc
-
-
 gpause
+
+#https://code.visualstudio.com/docs/setup/linux
+
 #code --install-extension yzhang.markdown-all-in-one
 #code --list-extensions --show-versions
 #code --list-extensions
 #code --uninstall-extension yzhang.markdown-all-in-one
+
+#notworking
+#sapt "openjdk-8-jdk"
+#sudo snap install netbeans --classic
