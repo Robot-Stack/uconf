@@ -2,6 +2,7 @@
 # main.sh
 ScriptDir="$(realpath "$0" | sed 's|\(.*\)/.*|\1|')"
 source "$ScriptDir/generic.sh"
+source "$ScriptDir/stratum.sh"
 source "$ScriptDir/support.sh"
 
 AptInstallIfNeededm "lsb-release" "dialog"
@@ -22,3 +23,7 @@ ReConfigureBashRc
 gpause
 
 
+#code --install-extension yzhang.markdown-all-in-one
+#code --list-extensions --show-versions
+#code --list-extensions
+#code --uninstall-extension yzhang.markdown-all-in-one
