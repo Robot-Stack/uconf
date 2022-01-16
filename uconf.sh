@@ -17,7 +17,7 @@ sapt "wget" "apt-transport-https" "snapcraft" "gdebi-core" "git" "curl" "mc" "ff
 #Generic UI Tools
 sapt "libreoffice" "gimp" "inkscape" "flameshot" 
 ssnap "code" "telegram-desktop"
-ggdebi "https://github.com/shiftkey/desktop/releases/download/release-2.9.6-linux1/GitHubDesktop-linux-2.9.6-linux1.deb"
+sgdebi "github-desktop"
 
 
 ReConfigureBashRc

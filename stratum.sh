@@ -32,26 +32,22 @@ scheckos()
     fi
 }
 
-supdate()
+supdateall()
 {
+    gupdate "$verbosity"
+    gupgrade "$verbosity"
+    gupdate "$verbosity"
+    gdistupgrade "$verbosity"
     gupdate "$verbosity"
 }
 
-supgrade()
+sgdebi()
 {
-    gupgrade "$verbosity"
-}
-
-sgdistupgrade()
-{
-    gdistupgrade "$verbosity"
-}
-
-supdateall()
-{
-    supdate "$verbosity"
-    supgrade "$verbosity"
-    supdate "$verbosity"
-    sgdistupgrade "$verbosity"
-    supdate "$verbosity"
+    if [ "$1" = "github-desktop" ] ; then
+        ggdebi "https://github.com/shiftkey/desktop/releases/download/release-2.9.6-linux1/GitHubDesktop-linux-2.9.6-linux1.deb"
+    elif [ "$1" = "addhere" ] ; then
+        echo "sgdebi: unknown $1"
+    else
+        echo "sgdebi: unknown $1"
+    fi
 }
