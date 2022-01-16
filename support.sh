@@ -11,6 +11,7 @@ function ReConfigureBashRc()
 function MakeDefaultDirs()
 {
     mkdir -p "$HOME/Documents/GitHub"
+    mkdir -p "$HOME/Downloads"
 }
 
 

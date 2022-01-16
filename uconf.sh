@@ -8,20 +8,17 @@ source "$ScriptDir/support.sh"
 sapth "lsb-release" "dialog"
 scheckos "Ubuntu" "21.10"
 gcontinueorabort "NaitWatch personal setup script."
+MakeDefaultDirs
 supdateall
 
 #Generic terminal/basic programs
-sapt "apt-transport-https" "snapcraft" "gdebi-core" "git" "curl" "mc" "ffmpeg"
+sapt "wget" "apt-transport-https" "snapcraft" "gdebi-core" "git" "curl" "mc" "ffmpeg"
 
 #Generic UI Tools
 sapt "libreoffice" "gimp" "inkscape" "flameshot" 
 ssnap "code" "telegram-desktop"
+ggdebi "https://github.com/shiftkey/desktop/releases/download/release-2.9.6-linux1/GitHubDesktop-linux-2.9.6-linux1.deb"
 
-MakeDefaultDirs
-
-wget https://github.com/shiftkey/desktop/releases/download/release-2.9.6-linux1/GitHubDesktop-linux-2.9.6-linux1.deb -O GitHubDesktop-linux-2.9.6-linux1.deb
-sudo gdebi -n GitHubDesktop-linux-2.9.6-linux1.deb
-rm -f GitHubDesktop-linux-2.9.6-linux1.deb
 
 ReConfigureBashRc
 gpause
@@ -73,9 +70,7 @@ export PATH=$PATH:/home/valgrind/uconf to /home/valgrind/.bashrc
 -connect online accounts (google)
 -login gmail in firebox
 -login firebox sync
-
 -login github
 -login discord
-
 launch https://github.com/NaitWatch/uconf
 '

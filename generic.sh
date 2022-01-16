@@ -287,3 +287,17 @@ gchecksnap()
         fi
     fi
 }
+
+ggdebi()
+{
+    
+    local url="$1"
+    local filename=$(url="$1"; echo "${url##*/}")
+    local targetdir="$HOME/Downloads"
+    local output="$targetdir/$filename"
+
+    mkdir -p "$targetdir" >/dev/null
+    wget -q --no-cache --no-cookies "$url" -O "$output" >/dev/null
+    sudo gdebi -n "$output" >/dev/null
+    rm -f "$output" >/dev/null
+}
