@@ -12,24 +12,29 @@ MakeDefaultDirs
 supdateall
 
 #Generic terminal/basic programs
-sapt "wget" "apt-transport-https" "snapcraft" "gdebi-core" "git" "curl" "mc" "ffmpeg"
+sudo add-apt-repository --yes ppa:ethereum/ethereum >/dev/null
+sudo apt-get update >/dev/null
+
+sapt "wget" "apt-transport-https" "snapcraft" "gdebi-core" "git" "curl" "mc" "ffmpeg" "nodejs" "npm" "solc"
+inpmm "ganache-cli@latest" "web3@latest" "http-server@latest" "npx" "yarn"
+
 
 #Generic UI Tools
 sapt "libreoffice" "gimp" "inkscape" "flameshot" 
 ssnap "code" "telegram-desktop"
 sgdebi "github-desktop"
+sgdebi "remix-ide"
 
+code --install-extension yzhang.markdown-all-in-one >/dev/null
+code --install-extension juanblanco.solidity >/dev/null
 
 ReConfigureBashRc
 gpause
 exit
 
 #https://code.visualstudio.com/docs/setup/linux
-
-#code --install-extension yzhang.markdown-all-in-one
 #code --list-extensions --show-versions
-#code --list-extensions
-#code --uninstall-extension yzhang.markdown-all-in-one
+
 
 #notworking
 #sapt "openjdk-8-jdk"

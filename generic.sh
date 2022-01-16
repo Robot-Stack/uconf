@@ -320,3 +320,18 @@ ggdebi()
     fi
     
 }
+
+inpm()
+{
+    #stdout and stderr to null              >/dev/null 2>&1
+    #stdout to null                         >/dev/null
+    echo "npm install $1"
+    sudo npm install $1 --global >/dev/null 2>&1
+}
+
+inpmm()
+{
+    for arg; do
+        inpm "$arg"
+    done
+}
