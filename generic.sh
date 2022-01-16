@@ -288,16 +288,35 @@ gchecksnap()
     fi
 }
 
+ggetdebpackname()
+{
+    local packagename=$(packagename=$(dpkg --info "$1" | grep "Package:");echo ${packagename##*:})
+    echo "$packagename"
+}
+
 ggdebi()
 {
-    
     local url="$1"
     local filename=$(url="$1"; echo "${url##*/}")
     local targetdir="$HOME/Downloads"
     local output="$targetdir/$filename"
 
     mkdir -p "$targetdir" >/dev/null
-    wget -q --no-cache --no-cookies "$url" -O "$output" >/dev/null
-    sudo gdebi -n "$output" >/dev/null
-    rm -f "$output" >/dev/null
+
+    if [ ! -f "$output" ]; then
+        wget -q --no-cache --no-cookies "$url" -O "$output" >/dev/null
+    fi
+
+    if [ -f "$output" ]; then
+            local packagename=$(ggetdebpackname "$output")
+            local str=$(apt --installed list 2>/dev/null | grep "^$packagename/.*")
+            str="${str%/*}"
+            if [ "$packagename" != "$str" ] ; then
+                echo "sudo gdebi -n "$output" >/dev/null"
+                sudo gdebi -n "$output" >/dev/null
+            else
+                gpecho "60" " " "Package: " "$packagename" "(is installed)"
+            fi
+    fi
+    
 }
