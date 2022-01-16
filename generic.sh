@@ -335,3 +335,67 @@ inpmm()
         inpm "$arg"
     done
 }
+
+
+#stdCmd "sudo apt-get install solc" "verrors"
+function stdCmd() {
+    stderr=
+    stdout=
+
+    if [ "$2" = "normal" ] ; then
+            echo "$1"
+    elif [ "$2" = "errors" ] ; then
+            : # do not display the command
+    elif [ "$2" = "verrors" ] ; then
+            echo "$1"
+    elif [ "$2" = "command" ] ; then
+            echo "$1"
+    elif [ "$2" = "never" ] ; then
+            : # do not display the command
+    else
+            echo "$1"
+    fi
+
+    . <({ stderr=$({ stdout="$($1)"; } 2>&1; declare -p stdout >&2); declare -p stderr; } 2>&1)
+
+    if [ "$2" = "normal" ] ; then
+            # display stdout and stderr
+            if [ ! -z "${stderr}" ]
+            then
+                echo "$stderr"
+            fi
+            if [ ! -z "${stdout}" ]
+            then
+                echo "$stdout"
+            fi
+    elif [ "$2" = "errors" ] ; then
+            # display stderr
+            if [ ! -z "${stderr}" ]
+            then
+                echo "$stderr"
+            fi
+    elif [ "$2" = "verrors" ] ; then
+            # display stderr
+            if [ ! -z "${stderr}" ]
+            then
+                echo "$stderr"
+            fi
+    elif [ "$2" = "command" ] ; then
+            # don't display stdout and stderr
+            :
+    elif [ "$2" = "never" ] ; then
+            # don't display stdout and stderr
+            : 
+    else
+            # display stdout and stderr
+            if [ ! -z "${stderr}" ]
+            then
+                echo "$stderr"
+            fi
+            if [ ! -z "${stdout}" ]
+            then
+                echo "$stdout"
+            fi
+    fi
+
+}

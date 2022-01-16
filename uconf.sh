@@ -5,6 +5,8 @@ source "$ScriptDir/generic.sh"
 source "$ScriptDir/stratum.sh"
 source "$ScriptDir/support.sh"
 
+
+
 sapth "lsb-release" "dialog"
 scheckos "Ubuntu" "21.10"
 gcontinueorabort "NaitWatch personal setup script."
