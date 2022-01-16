@@ -8,4 +8,9 @@ function ReConfigureBashRc()
     AppendStringOnce "export PATH=\$PATH:$ScriptDir" "$HOME/.bashrc"
 }
 
+function MakeDefaultDirs()
+{
+    mkdir -p "$HOME/Documents/GitHub"
+}
+
 
