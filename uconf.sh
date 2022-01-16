@@ -66,3 +66,16 @@ Warning: flag --classic ignored for strictly confined snap telegram-desktop
 
 export PATH=$PATH:/home/valgrind/uconf to /home/valgrind/.bashrc
 '
+
+:'Fresh install steps
+-install virtualbox guest addtions
+-enable clipboard bidirectional
+-connect online accounts (google)
+-login gmail in firebox
+-login firebox sync
+
+-login github
+-login discord
+
+launch https://github.com/NaitWatch/uconf
+'
