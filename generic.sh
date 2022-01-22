@@ -120,75 +120,29 @@ CommandLoop()
 
 gdistupgrade()
 {
-    if [ "$1" = "normal" ] ; then
-        sudo apt-get -y dist-upgrade
-    elif [ "$1" = "stderr only" ] ; then
-        sudo apt-get -y dist-upgrade >/dev/null
-    elif [ "$1" = "verbose stderr" ] ; then
-        echo "sudo apt-get -y dist-upgrade"
-        sudo apt-get -y dist-upgrade >/dev/null
-    elif [ "$1" = "hidden stderr" ] ; then
-        sudo apt-get -y dist-upgrade >/dev/null
-    elif [ "$1" = "hidden null" ] ; then
-        sudo apt-get -y dist-upgrade >/dev/null 2>&1
-    else
-        echo "Dryrun: $2"
-    fi
+    gcmd "sudo apt-get -y dist-upgrade " "verrors"
 }
 
 gupgrade()
 {
-    if [ "$1" = "normal" ] ; then
-        sudo apt-get -y upgrade
-    elif [ "$1" = "stderr only" ] ; then
-        sudo apt-get -y upgrade >/dev/null
-    elif [ "$1" = "verbose stderr" ] ; then
-        echo "sudo apt-get -y upgrade"
-        sudo apt-get -y upgrade >/dev/null
-    elif [ "$1" = "hidden stderr" ] ; then
-        sudo apt-get -y upgrade >/dev/null
-    elif [ "$1" = "hidden null" ] ; then
-        sudo apt-get -y upgrade >/dev/null 2>&1
-    else
-        echo "Dryrun: $2"
-    fi
+    gcmd "sudo apt-get -y upgrade" "verrors"
 }
 
 gupdate()
 {
-    if [ "$1" = "normal" ] ; then
-        sudo apt-get -y update
-    elif [ "$1" = "stderr only" ] ; then
-        sudo apt-get -y update >/dev/null
-    elif [ "$1" = "verbose stderr" ] ; then
-        echo "sudo apt-get -y update"
-        sudo apt-get -y update >/dev/null
-    elif [ "$1" = "hidden stderr" ] ; then
-        sudo apt-get -y update >/dev/null
-    elif [ "$1" = "hidden null" ] ; then
-        sudo apt-get -y update >/dev/null 2>&1
-    else
-        echo "Dryrun: $2"
-    fi
+    gcmd "sudo apt-get -y update" "verrors"
 }
 
-gapt()
+
+gup()
 {
-    if [ "$1" = "normal" ] ; then
-        sudo apt-get -y install $2
-    elif [ "$1" = "stderr only" ] ; then
-        sudo apt-get -y install $2 >/dev/null
-    elif [ "$1" = "verbose stderr" ] ; then
-        echo "sudo apt-get -y install $2 >/dev/null"
-        sudo apt-get -y install $2 >/dev/null
-    elif [ "$1" = "hidden stderr" ] ; then
-        sudo apt-get -y install $2 >/dev/null
-    elif [ "$1" = "hidden null" ] ; then
-        sudo apt-get -y install $2 >/dev/null 2>&1
-    else
-        echo "Dryrun: $2"
-    fi
+    gupdate
+    gupgrade
+    gupdate
+    gdistupgrade
+    gupdate
 }
+
 
 gcheckapt()
 {
@@ -248,23 +202,6 @@ gcontinueorabort()
     clear
 }
 
-gsnap()
-{
-    if [ "$1" = "normal" ] ; then
-        sudo snap install --classic $2
-    elif [ "$1" = "stderr only" ] ; then
-        sudo snap install --classic $2 >/dev/null
-    elif [ "$1" = "verbose stderr" ] ; then
-        echo "sudo snap install --classic $2 >/dev/null"
-        sudo snap install --classic $2 >/dev/null
-    elif [ "$1" = "hidden stderr" ] ; then
-        sudo snap install --classic $2 >/dev/null
-    elif [ "$1" = "hidden null" ] ; then
-        sudo snap install --classic $2 >/dev/null 2>&1
-    else
-        echo "Dryrun: $2"
-    fi
-}
 
 gchecksnap()
 {
@@ -321,24 +258,41 @@ ggdebi()
     
 }
 
-inpm()
+
+gsnap()
 {
-    #stdout and stderr to null              >/dev/null 2>&1
-    #stdout to null                         >/dev/null
-    echo "npm install $1"
-    sudo npm install $1 --global >/dev/null 2>&1
+    gloop "sudo snap install" "--classic" "$@"
 }
 
-inpmm()
+gnpm()
 {
-    for arg; do
-        inpm "$arg"
-    done
+    gloop "sudo npm install" "--global" "$@"
 }
 
+gapt()
+{
+    gloop "sudo apt-get install" "-y" "$@"
+}
 
-#stdCmd "sudo apt-get install solc" "verrors"
-function stdCmd() {
+gloop()
+{
+    if [ "$#" -gt 3 ]; then
+        total="$(($#))"
+        max="$(($#-1))"
+        count=$((total - max))
+        for arg; do
+              if [ $count -gt 2 ]; then
+                gloop "$1" "$2" "${!count}"
+              fi
+            count=$((count + 1))
+        done
+    else
+        gcmd "$1 $2 $3" "verrors"
+    fi
+}
+
+#gcmd "sudo apt-get install solc" "verrors"
+function gcmd() {
     stderr=
     stdout=
 

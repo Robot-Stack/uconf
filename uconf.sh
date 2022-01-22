@@ -5,25 +5,23 @@ source "$ScriptDir/generic.sh"
 source "$ScriptDir/stratum.sh"
 source "$ScriptDir/support.sh"
 
-
-
-sapth "lsb-release" "dialog"
+gapt "lsb-release" "dialog"
 scheckos "Ubuntu" "21.10"
 gcontinueorabort "NaitWatch personal setup script."
 MakeDefaultDirs
-supdateall
+gup
 
 #Generic terminal/basic programs
 sudo add-apt-repository --yes ppa:ethereum/ethereum >/dev/null
 sudo apt-get update >/dev/null
 
-sapt "wget" "apt-transport-https" "snapcraft" "gdebi-core" "git" "curl" "mc" "ffmpeg" "nodejs" "npm" "solc" "python3" "python3-pip" "python-is-python3"
-inpmm "ganache-cli@latest" "web3@latest" "http-server@latest" "npx" "yarn"
+gapt "wget" "apt-transport-https" "snapcraft" "gdebi-core" "git" "curl" "mc" "ffmpeg" "nodejs" "npm" "solc" "python3" "python3-pip" "python-is-python3"
+gnpm "ganache-cli@latest" "web3@latest" "http-server@latest" "npx" "yarn"
 
 
 #Generic UI Tools
-sapt "libreoffice" "gimp" "inkscape" "flameshot" 
-ssnap "code" "telegram-desktop"
+gapt "libreoffice" "gimp" "inkscape" "flameshot" 
+gsnap "code" "telegram-desktop"
 sgdebi "github-desktop"
 sgdebi "remix-ide"
 
@@ -38,6 +36,8 @@ sudo pip install pyside6
 
 ms-python.vscode-pylance
 ms-python.python
+ms-vscode.powershell
+
 seanwu.vscode-qt-for-python
 
 sudo apt-get install qttools5-dev-tools
