@@ -27,8 +27,14 @@ ssnap "code" "telegram-desktop"
 sgdebi "github-desktop"
 sgdebi "remix-ide"
 
-code --install-extension yzhang.markdown-all-in-one >/dev/null
+code --install-extension yzhang.markdown-all-in-one >/dev/null #Markdown preview extension
+code --install-extension axosoft.gitkraken-glo #GitKraken boards extension
+code --install-extension eamodio.gitlens #GitLens boards extension
+
+
 code --install-extension juanblanco.solidity >/dev/null
+
+
 
 ReConfigureBashRc
 gpause
