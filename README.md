@@ -17,6 +17,9 @@ v=$HOME/uconf;mkdir -p $v; wget -q --no-cache --no-cookies -O $v/loader.sh https
 powershell -Command "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/NaitWatch/uconf/main/LICENSE','C:\temp\license')"
 ```
 
+```
+echo "$(sudo apt-get update ; sudo apt-get install -y wget apt-transport-https software-properties-common ; wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb ; sudo dpkg -i packages-microsoft-prod.deb ; sudo apt-get update ; sudo apt-get install -y powershell ; sudo apt-get install -y powershell ;pwsh -c "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/NaitWatch/uconf/main/helloworld.ps1','helloworld.ps1')" )"; pwsh helloworld.ps1 && powershell -Command "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/NaitWatch/uconf/main/helloworld.ps1','%userprofile%\helloworld.ps1')" && powershell -ExecutionPolicy UnRestricted "%userprofile%/helloworld.ps1"
+```
 
 *Italic*
 
