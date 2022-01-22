@@ -31,6 +31,8 @@ code --install-extension yzhang.markdown-all-in-one >/dev/null #Markdown preview
 code --install-extension axosoft.gitkraken-glo #GitKraken boards extension
 code --install-extension eamodio.gitlens #GitLens boards extension
 
+code --install-extension ms-python.python #Python extension for Visual Studio Code
+
 
 code --install-extension juanblanco.solidity >/dev/null
 
