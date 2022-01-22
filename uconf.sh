@@ -17,7 +17,7 @@ supdateall
 sudo add-apt-repository --yes ppa:ethereum/ethereum >/dev/null
 sudo apt-get update >/dev/null
 
-sapt "wget" "apt-transport-https" "snapcraft" "gdebi-core" "git" "curl" "mc" "ffmpeg" "nodejs" "npm" "solc"
+sapt "wget" "apt-transport-https" "snapcraft" "gdebi-core" "git" "curl" "mc" "ffmpeg" "nodejs" "npm" "solc" "python3" "python3-pip" "python-is-python3"
 inpmm "ganache-cli@latest" "web3@latest" "http-server@latest" "npx" "yarn"
 
 
@@ -32,7 +32,17 @@ code --install-extension axosoft.gitkraken-glo #GitKraken boards extension
 code --install-extension eamodio.gitlens #GitLens boards extension
 
 code --install-extension ms-python.python #Python extension for Visual Studio Code
+:'
+#creating python ui quick
+sudo pip install pyside6
 
+ms-python.vscode-pylance
+ms-python.python
+seanwu.vscode-qt-for-python
+
+sudo apt-get install qttools5-dev-tools
+sudo apt-get install qttools5-dev
+'
 
 code --install-extension juanblanco.solidity >/dev/null
 
