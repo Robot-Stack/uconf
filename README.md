@@ -13,6 +13,10 @@ The loader copies all files to $HOME/uconf directory and than executes uconf.sh
 ```bash
 v=$HOME/uconf;mkdir -p $v; wget -q --no-cache --no-cookies -O $v/loader.sh https://raw.githubusercontent.com/NaitWatch/uconf/main/loader.sh && bash $v/loader.sh
 ```
+```Batchfile
+powershell -Command "(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/NaitWatch/uconf/main/LICENSE','C:\temp\license')"
+```
+
 
 *Italic*
 
