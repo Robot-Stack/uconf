@@ -1,6 +1,6 @@
 #!/bin/bash
 # generic.sh
-ScriptDir="$(realpath "$0" | sed 's|\(.*\)/.*|\1|')"
+ScriptDir="$(realpath "$0" | sed 's|\(.*\)/.*|\1|')" #asdasd
 
 function gpause()
 {
