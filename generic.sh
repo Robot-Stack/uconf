@@ -247,29 +247,146 @@ ggdebi()
     
 }
 
+
+
 gcodeext()
 {
-    gloop "code --install-extension" "" "$@"
+    local arrArg=()
+    local arrArgResult=()
+    for arg; do
+        arrArg+=("$arg")
+    done
+
+    #loop over the array and remove items that are installed
+    for i in "${arrArg[@]}"
+    do
+        isInstalledCheck=$(gcodeextIsInstalled "$i")
+        if [ "$isInstalledCheck" == "false" ]; then
+            arrArgResult+=("$i")
+        fi
+    done
+
+    #if an item is left 
+    if [ ! ${#arrArgResult[@]} -eq 0 ]; then
+        gloop "code --install-extension" "" "${arrArgResult[@]}"
+    fi
+}
+
+gsnapc()
+{
+    local arrArg=()
+    local arrArgResult=()
+    for arg; do
+        arrArg+=("$arg")
+    done
+
+    #loop over the array and remove items that are installed
+    for i in "${arrArg[@]}"
+    do
+        isInstalledCheck=$(gsnapIsInstalled "$i")
+        if [ "$isInstalledCheck" == "false" ]; then
+            arrArgResult+=("$i")
+        fi
+    done
+
+    #if an item is left 
+    if [ ! ${#arrArgResult[@]} -eq 0 ]; then
+        gloop "sudo snap install" "--classic" "${arrArgResult[@]}"
+    fi
 }
 
 gsnap()
 {
-    gloop "sudo snap install" "--classic" "$@"
+    local arrArg=()
+    local arrArgResult=()
+    for arg; do
+        arrArg+=("$arg")
+    done
+
+    #loop over the array and remove items that are installed
+    for i in "${arrArg[@]}"
+    do
+        isInstalledCheck=$(gsnapIsInstalled "$i")
+        if [ "$isInstalledCheck" == "false" ]; then
+            arrArgResult+=("$i")
+        fi
+    done
+
+    #if an item is left 
+    if [ ! ${#arrArgResult[@]} -eq 0 ]; then
+        gloop "sudo snap install" "" "${arrArgResult[@]}"
+    fi
 }
 
 gnpm()
 {
-    gloop "sudo npm install" "--global" "$@"
+    local arrArg=()
+    local arrArgResult=()
+    for arg; do
+        arrArg+=("$arg")
+    done
+
+    #loop over the array and remove items that are installed
+    for i in "${arrArg[@]}"
+    do
+        isInstalledCheck=$(gnpmIsInstalled "$i")
+        if [ "$isInstalledCheck" == "false" ]; then
+            arrArgResult+=("$i")
+        fi
+    done
+
+    #if an item is left 
+    if [ ! ${#arrArgResult[@]} -eq 0 ]; then
+        gloop "sudo npm install" "--global" "${arrArgResult[@]}"
+    fi
 }
 
 gapt()
 {
-    gloop "sudo apt-get install" "-y" "$@"
+    local arrArg=()
+    local arrArgResult=()
+    for arg; do
+        arrArg+=("$arg")
+    done
+
+    #loop over the array and remove items that are installed
+    for i in "${arrArg[@]}"
+    do
+        isInstalledCheck=$(gaptIsInstalled "$i")
+        if [ "$isInstalledCheck" == "false" ]; then
+            arrArgResult+=("$i")
+        fi
+    done
+
+    #if an item is left 
+    if [ ! ${#arrArgResult[@]} -eq 0 ]; then
+        gloop "sudo apt-get install" "-y" "${arrArgResult[@]}"
+    fi
 }
 
 gpip()
 {
-    gloop "sudo pip install" "" "$@"
+    local arrArg=()
+    local arrArgResult=()
+    for arg; do
+        arrArg+=("$arg")
+    done
+
+    #loop over the array and remove items that are installed
+    for i in "${arrArg[@]}"
+    do
+        isInstalledCheck=$(gpipIsInstalled "$i")
+        if [ "$isInstalledCheck" == "false" ]; then
+            arrArgResult+=("$i")
+        fi
+    done
+
+    #if an item is left 
+    if [ ! ${#arrArgResult[@]} -eq 0 ]; then
+        gloop "sudo pip install" "" "${arrArgResult[@]}"
+    fi
+
+    
 }
 
 gppa()
@@ -286,6 +403,60 @@ gppa()
     gcmd "sudo apt-get -y update" "verrors"
 
 }
+
+gaptIsInstalled()
+{
+    local checkresult=$(apt --installed list 2>/dev/null | grep "^$1/.*")
+    checkresult="${checkresult%/*}"
+    if [ "$1" != "$checkresult" ] ; then
+        echo "false"
+    else
+        echo "true"
+    fi
+}
+
+gsnapIsInstalled()
+{
+    local checkresult=$(snap list 2>/dev/null  | grep "^$1 .*")
+    checkresult="${checkresult%% *}"
+    if [ "$1" != "$checkresult" ] ; then
+        echo "false"
+    else
+        echo "true"
+    fi
+}
+
+gnpmIsInstalled()
+{
+    basename="${1%@*}"
+    local checkresult=$(npm list -g --depth=0 | grep -c --ignore-case ".*$basename@")
+    if [ $checkresult == 0 ] ; then
+        echo "false"
+    else
+        echo "true"
+    fi
+}
+
+gpipIsInstalled()
+{
+    local checkresult=$(pip list | grep -c --ignore-case "^$1")
+    if [ $checkresult == 0 ] ; then
+        echo "false"
+    else
+        echo "true"
+    fi
+}
+
+gcodeextIsInstalled()
+{
+    local checkresult=$(code --list-extensions | grep -c --ignore-case "^$1")
+    if [ $checkresult == 0 ] ; then
+        echo "false"
+    else
+        echo "true"
+    fi
+}
+
 
 
 gloop()
