@@ -52,9 +52,14 @@ gcodeext "juanblanco.solidity" #Solidity
 
 #gcodeext "seanwu.vscode-qt-for-python"
 
+#gesettings
+gsettings set org.gnome.desktop.session idle-delay 3600
+gsettings set org.gnome.desktop.screensaver lock-delay 0
+
 ReConfigureBashRc
 gpause
 exit
+
 
 
 #notworking
@@ -62,6 +67,10 @@ exit
 #sudo snap install netbeans --classic
 
 : '
+Windows
+py -m ensurepip --upgrade
+py -m pip install --upgrade pip
+py -m pip install pyside6
 
 '
 
