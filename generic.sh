@@ -56,17 +56,6 @@ function gdisplayosver()
     echo "$str"
 }
 
-
-gaptgetupgrade()
-{
-    sudo apt-get -y upgrade
-}
-
-gaptgetdistupgrade()
-{
-    sudo apt-get -y dist-upgrade
-}
-
 gdoreleaseupgrade()
 {
     Replace "/etc/update-manager/release-upgrades" "Prompt=lts" "Prompt=normal"
@@ -258,6 +247,10 @@ ggdebi()
     
 }
 
+gcodeext()
+{
+    gloop "code --install-extension" "" "$@"
+}
 
 gsnap()
 {
@@ -273,6 +266,27 @@ gapt()
 {
     gloop "sudo apt-get install" "-y" "$@"
 }
+
+gpip()
+{
+    gloop "sudo pip install" "" "$@"
+}
+
+gppa()
+{
+    if [ "$#" -eq 1 ]; then
+        gcmd "sudo add-apt-repository --yes $1" "verrors"
+    elif [ "$#" -eq 2 ] ; then
+        local filename=$(url="$1"; echo "${url##*/}")
+        gcmd "wget -q --no-cache --no-cookies -O- $1 | sudo tee /etc/apt/trusted.gpg.d/$filename" "verrors"
+        gcmd "sudo add-apt-repository --yes $2" "verrors"
+    else
+        echo "function gppa unkown count of parameter"
+    fi
+    gcmd "sudo apt-get -y update" "verrors"
+
+}
+
 
 gloop()
 {

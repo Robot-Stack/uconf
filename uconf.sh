@@ -5,48 +5,52 @@ source "$ScriptDir/generic.sh"
 source "$ScriptDir/stratum.sh"
 source "$ScriptDir/support.sh"
 
+#Install confirmation script requirements
 gapt "lsb-release" "dialog"
 scheckos "Ubuntu" "21.10"
 gcontinueorabort "NaitWatch personal setup script."
 MakeDefaultDirs
 gup
 
-#Generic terminal/basic programs
-sudo add-apt-repository --yes ppa:ethereum/ethereum >/dev/null
-sudo apt-get update >/dev/null
+#Install script requirements
+gapt "apt-transport-https" "wget" "gdebi-core"
 
-gapt "wget" "apt-transport-https" "snapcraft" "gdebi-core" "git" "curl" "mc" "ffmpeg" "nodejs" "npm" "solc" "python3" "python3-pip" "python-is-python3"
-gnpm "ganache-cli@latest" "web3@latest" "http-server@latest" "npx" "yarn"
+#Apt Package manager (main,universe,restricted,multiverse)
+gapt "git" "curl" "mc" "ffmpeg" "solc" "python3" "python-is-python3" # command
+gapt "libreoffice" "gimp" "inkscape" "flameshot" "qttools5-dev-tools" "qttools5-dev" # ui
 
+#Apt Package manager (custom)
+gppa "ppa:ethereum/ethereum"
+gppa "https://packages.microsoft.com/keys/microsoft.asc" "https://packages.microsoft.com/ubuntu/21.10/prod"
+gapt "solc" "powershell" # command
 
-#Generic UI Tools
-gapt "libreoffice" "gimp" "inkscape" "flameshot" 
-gsnap "code" "telegram-desktop"
-sgdebi "github-desktop"
-sgdebi "remix-ide"
+#Snap Package manager
+gapt "snapcraft" 
+gsnap "code" "telegram-desktop" # ui
 
-code --install-extension yzhang.markdown-all-in-one >/dev/null #Markdown preview extension
-code --install-extension axosoft.gitkraken-glo #GitKraken boards extension
-code --install-extension eamodio.gitlens #GitLens boards extension
+#NPM Package manager
+gapt "nodejs" "npm"
+gnpm "ganache-cli@latest" "web3@latest" "http-server@latest" "npx" "yarn" # command
 
-code --install-extension ms-python.python #Python extension for Visual Studio Code
-:'
-#creating python ui quick
-sudo pip install pyside6
+#Gdebi bin packages
+gapt "gdebi-core"
+sgdebi "github-desktop" #ui
+sgdebi "remix-ide" #ui
 
-ms-python.vscode-pylance
-ms-python.python
-ms-vscode.powershell
+#Python pip package manager
+gapt "python3-pip"
+gpip "pyside6"
 
-seanwu.vscode-qt-for-python
+#Visual Studio Code extensions
+gcodeext "ms-python.python" #Python
+gcodeext "ms-python.vscode-pylance" #Pylance
+gcodeext "ms-vscode.powershell" #Powershell
+gcodeext "yzhang.markdown-all-in-one" #Markdown preview
+gcodeext "axosoft.gitkraken-glo" #GitKraken boards
+gcodeext "eamodio.gitlens" #GitLens
+gcodeext "juanblanco.solidity" #Solidity
 
-sudo apt-get install qttools5-dev-tools
-sudo apt-get install qttools5-dev
-'
-
-code --install-extension juanblanco.solidity >/dev/null
-
-
+#gcodeext "seanwu.vscode-qt-for-python" #Solidity
 
 ReConfigureBashRc
 gpause
