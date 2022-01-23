@@ -2,8 +2,6 @@
 # uconf.sh
 ScriptDir="$(realpath "$0" | sed 's|\(.*\)/.*|\1|')"
 source "$ScriptDir/generic.sh"
-source "$ScriptDir/stratum.sh"
-source "$ScriptDir/support.sh"
 
 #Install confirmation script requirements
 gapt "lsb-release" "dialog"
@@ -24,10 +22,12 @@ gppa "ppa:ethereum/ethereum"
 gapt "solc" # command
 
 #Snap Package manager
-gapt "snapcraft" 
+gapt "snapcraft"
 gsnapc "powershell" # command
 gsnapc "gitkraken" "code" "telegram-desktop" #ui
 gsnap "vlc" #ui
+gsnaprefresh
+
 
 #NPM Package manager
 gapt "nodejs" "npm"
